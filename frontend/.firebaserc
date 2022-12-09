@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "fir-auth-3e082"
+  },
+  "targets": {
+    "fir-auth-3e082": {
+      "hosting": {
+        "template-site": [
+          "template-2022-1209"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
