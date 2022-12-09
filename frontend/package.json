@@ -11,9 +11,19 @@
     "deploy": "firebase deploy --only hosting"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.13",
+    "@chakra-ui/react": "^2.4.3",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@tanstack/react-query": "^4.19.1",
+    "@tanstack/react-query-devtools": "^4.19.1",
+    "axios": "^1.2.1",
     "firebase": "^9.15.0",
+    "framer-motion": "^6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
+    "react-router-dom": "^6.4.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
