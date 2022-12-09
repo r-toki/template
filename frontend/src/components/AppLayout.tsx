@@ -11,14 +11,11 @@ import {
   MenuList,
   Stack,
 } from '@chakra-ui/react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getAuth, signOut as signOutFn } from 'firebase/auth';
 import { ReactNode } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { GoThreeBars } from 'react-icons/go';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppToast } from '@/hooks/useAppToast';
 import { useMe } from '@/providers/me';
 
 export const AppLayout = ({
@@ -30,18 +27,8 @@ export const AppLayout = ({
   back?: string;
   children: ReactNode;
 }) => {
-  const client = useQueryClient();
   const navigate = useNavigate();
-  const toast = useAppToast();
   const { me } = useMe();
-
-  const signOut = useMutation({
-    mutationFn: () => signOutFn(getAuth()),
-    onSuccess: () => {
-      client.setQueryData(['me'], null);
-      toast({ status: 'success', title: 'Signed out.' });
-    },
-  });
 
   return (
     <Container maxW="md" py="2">
@@ -76,11 +63,9 @@ export const AppLayout = ({
             <Menu placement="bottom-end">
               <MenuButton as={IconButton} icon={<GoThreeBars />} />
               <MenuList>
-                <MenuItem>{me!.name}</MenuItem>
+                <MenuItem fontWeight="bold">{me!.name}</MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={() => signOut.mutate()} disabled={signOut.isLoading}>
-                  Sign Out
-                </MenuItem>
+                <MenuItem onClick={() => navigate('/settings')}>Settings</MenuItem>
               </MenuList>
             </Menu>
           </Box>

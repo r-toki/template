@@ -10,14 +10,14 @@ pub struct Me {
     name: String,
 }
 
-pub async fn get_me(pool: &PgPool, id: String) -> Result<Me, Error> {
+pub async fn get_me(pool: &PgPool, user_id: String) -> Result<Me, Error> {
     query_as!(
         Me,
         "
         select id, name from users
         where id = $1
         ",
-        id
+        user_id
     )
     .fetch_one(pool)
     .await
@@ -31,14 +31,28 @@ pub struct CreateMe {
     name: String,
 }
 
-pub async fn create_me(pool: &PgPool, id: String, input: CreateMe) -> Result<(), Error> {
+pub async fn create_me(pool: &PgPool, user_id: String, input: CreateMe) -> Result<(), Error> {
     query!(
         "
         insert into users (id, name, created_at, updated_at)
         values ($1, $2, current_timestamp, current_timestamp)
         ",
-        id,
+        user_id,
         input.name
+    )
+    .execute(pool)
+    .await
+    .map(|_| ())
+    .map_err(Into::into)
+}
+
+pub async fn delete_me(pool: &PgPool, user_id: String) -> Result<(), Error> {
+    query!(
+        "
+        delete from users
+        where id = $1
+        ",
+        user_id
     )
     .execute(pool)
     .await
