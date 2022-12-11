@@ -1,9 +1,9 @@
 use crate::lib::Error;
 use serde::{Deserialize, Serialize};
-use sqlx::{query, query_as, FromRow, PgPool};
+use sqlx::{query, query_as, PgPool};
 use validator::Validate;
 
-#[derive(Serialize, FromRow)]
+#[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Me {
     id: String,
